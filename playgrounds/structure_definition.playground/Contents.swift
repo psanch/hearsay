@@ -50,10 +50,7 @@ struct messageStruct: Encodable, Decodable {
     
 }
 
-func printMsg(msg: messageStruct){
-    print("MessageID: \(msg.messageID)\nTimestamp: \(msg.timestamp)\nAuthor: \(msg.author)\nContents: \(msg.contents)\nComments: \(String(describing: msg.comments))\nVotes: \(msg.votes)\n")
-}
-
+//Should possibly re-factor this to be a member function?
 func encode(msg: messageStruct) -> Data{
     let jsonEncoder = JSONEncoder()
     let jsonData = try! jsonEncoder.encode(msg)
@@ -64,6 +61,11 @@ func encode(msg: messageStruct) -> Data{
 }
 
 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+func printMsg(msg: messageStruct){
+    print("MessageID: \(msg.messageID)\nTimestamp: \(msg.timestamp)\nAuthor: \(msg.author)\nContents: \(msg.contents)\nComments: \(String(describing: msg.comments))\nVotes: \(msg.votes)\n")
+}
 
 //Overloading the equality operator
 //Allows messageStruct1 == messageStruct2
@@ -71,15 +73,16 @@ extension messageStruct: Equatable {
     static func == (left: messageStruct, right: messageStruct) -> Bool {
         return (
             (left.messageID == right.messageID) &&
-            (left.timestamp == right.timestamp) && //timestamps will differ very precisely (seconds matter)
+                (left.timestamp == right.timestamp) && //timestamps will differ very precisely (seconds matter; a line of code matters)
             (left.author == right.author) &&
             (left.contents == right.contents) && //strings have built-in equivalence operator
-            (left.comments == right.comments) &&
+            (left.comments == right.comments) && //array of <Type_defaults> have built-in equivalence operator
             (left.votes == right.votes)
         )
     }
 }
 
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 /* Example that shows how to:
     * Instantiate messageStruct with Author and Contents
@@ -101,7 +104,7 @@ let m1json = encode(msg: m1)
 //print(Data) only gives number of bytes
 print(m1json)
 
-//can instantiate a string for a pretty-print:
+//can instantiate a string like this for a pretty-print:
 //let jsonString = String(data: m1json, encoding: .utf8)
 //print(jsonString)
 
@@ -111,7 +114,7 @@ if(m1 == m1d){
     print("Message successfully en/decoded!")
 }
 
-
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 //Most work done here was on the basis of this tutorial
 //https://www.raywenderlich.com/382-encoding-decoding-and-serialization-in-swift-4
