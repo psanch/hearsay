@@ -1,6 +1,6 @@
 import Cocoa
 
-struct messageStruct {
+struct messageStruct: Encodable, Decodable {
     var messageID: String
     var timestamp: Date
     
@@ -22,6 +22,20 @@ struct messageStruct {
         self.messageID = "abc123" //should be the hash value of all the above
     }
     
+    init(data: Data){
+        let jsonDecoder = JSONDecoder()
+        let msg = try! jsonDecoder.decode(messageStruct.self, from: data)
+        
+        self.messageID = msg.messageID
+        self.timestamp = msg.timestamp
+        
+        self.author = msg.author
+        self.contents = msg.contents
+        
+        self.comments = msg.comments
+        self.votes = msg.votes
+    }
+    
     mutating func addComment(comment: String){
         self.comments.append(comment)
     }
@@ -34,12 +48,21 @@ struct messageStruct {
         self.votes -= 1
     }
     
-    
 }
 
 func printMsg(msg: messageStruct){
     print("MessageID: \(msg.messageID)\nTimestamp: \(msg.timestamp)\nAuthor: \(msg.author)\nContents: \(msg.contents)\nComments: \(String(describing: msg.comments))\nVotes: \(msg.votes)\n")
 }
+
+func encode(msg: messageStruct) -> Data{
+    let jsonEncoder = JSONEncoder()
+    let jsonData = try! jsonEncoder.encode(msg)
+    return jsonData
+    
+    //Example of how to encode Data -> String
+    //let jsonString = String(data: jsonData, encoding: .utf8)
+}
+
 
 
 //Overloading the equality operator
@@ -57,23 +80,39 @@ extension messageStruct: Equatable {
     }
 }
 
-var m1 = messageStruct(author: "Pedro", contents: "1")
-printMsg(msg: m1)
 
-/* Working on serializing and unserializing data.
- //Currently, getting the data size is the problem. Doesn't expand when a comment is added.
+/* Example that shows how to:
+    * Instantiate messageStruct with Author and Contents
+    * Add a comment
+    * Vote (up and down)
+    * Encode messageStruct to JSON (Data)
+    * Initialize a new messageStruct from a Data
+*/
 
-var data = NSData(bytes: &m1, length: MemoryLayout<messageStruct>.size )
+var m1 = messageStruct(author: "Username", contents: "Contents")
+m1.addComment(comment: "Add a comment")
+m1.addComment(comment: "And another")
+m1.upvote()
+m1.upvote()
+m1.downvote()
 
-print("data: \(data)")
-printMsg(msg: m1)
+let m1json = encode(msg: m1)
 
-m1.addComment(comment: "Shit!")
+//print(Data) only gives number of bytes
+print(m1json)
 
-var data2 = NSData(bytes: &m1, length: MemoryLayout<messageStruct>.size )
+//can instantiate a string for a pretty-print:
+//let jsonString = String(data: m1json, encoding: .utf8)
+//print(jsonString)
 
-print("data: \(data2)")
-printMsg(msg: m1)
- 
- */
+let m1d = messageStruct(data: m1json)
+
+if(m1 == m1d){
+    print("Message successfully en/decoded!")
+}
+
+
+
+//Most work done here was on the basis of this tutorial
+//https://www.raywenderlich.com/382-encoding-decoding-and-serialization-in-swift-4
 
