@@ -92,27 +92,67 @@ extension messageStruct: Equatable {
     * Initialize a new messageStruct from a Data
 */
 
-var m1 = messageStruct(author: "Username", contents: "Contents")
-m1.addComment(comment: "Add a comment")
-m1.addComment(comment: "And another")
-m1.upvote()
-m1.upvote()
-m1.downvote()
-
-let m1json = encode(msg: m1)
-
-//print(Data) only gives number of bytes
-print(m1json)
-
-//can instantiate a string like this for a pretty-print:
-//let jsonString = String(data: m1json, encoding: .utf8)
-//print(jsonString)
-
-let m1d = messageStruct(data: m1json)
-
-if(m1 == m1d){
-    print("Message successfully en/decoded!")
+func example1(){
+    
+    var m1 = messageStruct(author: "Username", contents: "Contents")
+    m1.addComment(comment: "Add a comment")
+    m1.addComment(comment: "And another")
+    m1.upvote()
+    m1.upvote()
+    m1.downvote()
+    
+    let m1json = encode(msg: m1)
+    
+    //print(Data) only gives number of bytes
+    print(m1json)
+    
+    //can instantiate a string like this for a pretty-print:
+    //let jsonString = String(data: m1json, encoding: .utf8)
+    //print(jsonString)
+    
+    let m1d = messageStruct(data: m1json)
+    
+    if(m1 == m1d){
+        print("Message successfully en/decoded!")
+    }
 }
+
+/* Testing to see if we can send messageStruct -> Data -> String and back */
+
+func example2(){
+    var m = messageStruct(author: "Username", contents: "Contents")
+    m.addComment(comment: "Add a comment")
+    m.addComment(comment: "And another")
+    m.upvote()
+    
+    //struct -> Data
+    let jsondata = encode(msg: m)
+    
+    // Data -> String
+    let jsonString = String(data: jsondata, encoding: .utf8)!
+    
+    print(jsonString)
+    
+    var arrayJsonString = [String]()
+    arrayJsonString.append(jsonString)
+    
+    
+    //String -> Data
+    let dataFromString = jsonString.data(using: .utf8)!
+   
+    //Data -> Struct
+    let result = messageStruct(data: dataFromString)
+    
+    print(result.votes)
+    
+    //let jsonDecoder = JSONDecoder()
+    //let jsondata_returned = try jsonDecoder.decode(<#T##type: Decodable.Protocol##Decodable.Protocol#>, from: <#T##Data#>)
+    
+    
+    
+}
+
+example2()
 
 // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
