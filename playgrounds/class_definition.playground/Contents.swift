@@ -346,24 +346,37 @@ extension hearsayContent: Comparable{
 
 /* hearsayContent Merging Functions */
 
-func mergeContentTrees(l: [hearsayContent], r: [hearsayContent]) -> [hearsayContent]{
-    let set1:Set<hearsayContent> = Set(l)
-    let set2:Set<hearsayContent> = Set(r)
-    return Array(set1.union(set2))
-}
-
 func hearsayContentsShouldBeMerged(l: hearsayContent, r: hearsayContent) -> Bool {
+/*
+     Determines whether or not two hearsayContent objects should be merged.
+     Criteria for merging does not include comment trees since getting the 'super tree' is the objective of a merge. Similarly for votes.
+ */
     if (
         l.timestamp == r.timestamp &&
-        l.author == r.author &&
-        true //l.text == r.text
+            l.author == r.author &&
+        true //l.text == r.text                                 !!!!!!!! done for debugging
         ){
         return true
     }
     return false
 }
 
+func mergeTwoHearsayContentArrays(l: [hearsayContent], r: [hearsayContent]) -> [hearsayContent]{
+/*
+     Gets all unique hearsayContent objects from two arrays and returns them in an unordered array.
+ */
+    let set1:Set<hearsayContent> = Set(l)
+    let set2:Set<hearsayContent> = Set(r)
+    return Array(set1.union(set2))
+}
+
 func mergeHearsayContents(l: hearsayContent, r: hearsayContent) -> hearsayContent {
+/*
+     Given that two hearsayContent objects qualify for merging, merge them according to the following criteria:
+     1. If the upvotes differ, then the new number of upvotes is the sum of the two upvotes values.
+     2. Likewise for downvotes.
+     3. Keep all unique hearsayContent objects stored as comments of both argument objects.
+ */
     if l == r {
         return l
     }
@@ -387,7 +400,7 @@ func mergeHearsayContents(l: hearsayContent, r: hearsayContent) -> hearsayConten
     }
     
     if(l.comments != r.comments){
-        newComments = mergeContentTrees(l: l.comments, r: r.comments)
+        newComments = mergeTwoHearsayContentArrays(l: l.comments, r: r.comments)
     }
     else{
         newComments = l.comments
@@ -395,12 +408,13 @@ func mergeHearsayContents(l: hearsayContent, r: hearsayContent) -> hearsayConten
     
     var newHearsayContent = hearsayContent(timestamp: l.timestamp, author: l.author, text: l.text, comments: newComments, upvotes: newUpvotes, downvotes: newDownvotes)
     
-    newHearsayContent.comments.sort()
-    
     return newHearsayContent
 }
 
 func mergeHearsayContentsList(children: inout [hearsayContent]){
+/*
+     
+ */
     var i = 0
     children.sort()
     while(i < children.count-1){
@@ -511,7 +525,7 @@ func mergeCommentsTest(){
     t2.addComment(content: t5)
     t2.addComment(content: t6)
     
-    var x = mergeContentTrees(l: t1.comments, r: t2.comments)
+    var x = mergeTwoHearsayContentArrays(l: t1.comments, r: t2.comments)
     for comment in x{
         print(comment.author)
     }
