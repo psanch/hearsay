@@ -1,17 +1,214 @@
 import Cocoa
 
-func printHearsayContent(msg: hearsayContent, indent: Int){
-    var indentString = ""
-    for _ in 0..<indent{
-        indentString += "\t"
-    }
-    print(indentString + "HashValue: \(msg.hashValue)")
-    print(indentString + "Author: \(msg.author)")
-    print(indentString + "Timestamp: \(msg.timestamp)")
-    print(indentString + "Text: \(msg.text)")
-    print(indentString + "Upvotes: \(msg.upvotes)")
-    print(indentString + "Downvotes: \(msg.downvotes)")
+enum AppDirectories : String
+{
+    case Documents = "Documents"
+    case Inbox = "Inbox"
+    case Library = "Library"
+    case Temp = "tmp"
 }
+
+protocol AppDirectoryNames
+{
+    func documentsDirectoryURL() -> URL
+    
+    func inboxDirectoryURL() -> URL
+    
+    func libraryDirectoryURL() -> URL
+    
+    func tempDirectoryURL() -> URL
+    
+    func getURL(for directory: AppDirectories) -> URL
+    
+    func buildFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL
+} // end protocol AppDirectoryNames
+
+extension AppDirectoryNames
+{
+    func documentsDirectoryURL() -> URL
+    {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        //return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }
+    
+    func inboxDirectoryURL() -> URL
+    {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AppDirectories.Inbox.rawValue) // "Inbox")
+    }
+    
+    func libraryDirectoryURL() -> URL
+    {
+        return FileManager.default.urls(for: FileManager.SearchPathDirectory.libraryDirectory, in: .userDomainMask).first!
+    }
+    
+    func tempDirectoryURL() -> URL
+    {
+        return FileManager.default.temporaryDirectory
+        //urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AppDirectories.Temp.rawValue) //"tmp")
+    }
+    
+    func getURL(for directory: AppDirectories) -> URL
+    {
+        switch directory
+        {
+        case .Documents:
+            return documentsDirectoryURL()
+        case .Inbox:
+            return inboxDirectoryURL()
+        case .Library:
+            return libraryDirectoryURL()
+        case .Temp:
+            return tempDirectoryURL()
+        }
+    }
+    
+    func buildFullPath(forFileName name: String, inDirectory directory: AppDirectories) -> URL
+    {
+        return getURL(for: directory).appendingPathComponent(name)
+    }
+} // end extension AppDirectoryNames
+
+protocol AppFileStatusChecking
+{
+    func isWritable(file at: URL) -> Bool
+    
+    func isReadable(file at: URL) -> Bool
+    
+    func exists(file at: URL) -> Bool
+}
+
+extension AppFileStatusChecking
+{
+    func isWritable(file at: URL) -> Bool
+    {
+        if FileManager.default.isWritableFile(atPath: at.path)
+        {
+            print(at.path)
+            return true
+        }
+        else
+        {
+            print(at.path)
+            return false
+        }
+    }
+    
+    func isReadable(file at: URL) -> Bool
+    {
+        if FileManager.default.isReadableFile(atPath: at.path)
+        {
+            print(at.path)
+            return true
+        }
+        else
+        {
+            print(at.path)
+            return false
+        }
+    }
+    
+    func exists(file at: URL) -> Bool
+    {
+        if FileManager.default.fileExists(atPath: at.path)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+} // end extension AppFileStatusChecking
+
+protocol AppFileManipulation : AppDirectoryNames
+{
+    func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
+    
+    func readFile(at path: AppDirectories, withName name: String) -> String
+    
+    func deleteFile(at path: AppDirectories, withName name: String) -> Bool
+    
+    func renameFile(at path: AppDirectories, with oldName: String, to newName: String) -> Bool
+    
+    func moveFile(withName name: String, inDirectory: AppDirectories, toDirectory directory: AppDirectories) -> Bool
+    
+    func copyFile(withName name: String, inDirectory: AppDirectories, toDirectory directory: AppDirectories) -> Bool
+    
+    func changeFileExtension(withName name: String, inDirectory: AppDirectories, toNewExtension newExtension: String) -> Bool
+}
+
+extension AppFileManipulation
+{
+    func writeFile(containing: String, to path: AppDirectories, withName name: String) -> Bool
+    {
+        let filePath = getURL(for: path).path + "/" + name
+        let rawData: Data? = containing.data(using: .utf8)
+        return FileManager.default.createFile(atPath: filePath, contents: rawData, attributes: nil)
+    }
+    
+    func readFile(at path: AppDirectories, withName name: String) -> String
+    {
+        let filePath = getURL(for: path).path + "/" + name
+        let fileContents = FileManager.default.contents(atPath: filePath)
+        let fileContentsAsString = String(bytes: fileContents!, encoding: .utf8)
+        print(fileContentsAsString!)
+        return fileContentsAsString!
+    }
+    
+    func deleteFile(at path: AppDirectories, withName name: String) -> Bool
+    {
+        let filePath = buildFullPath(forFileName: name, inDirectory: path)
+        try! FileManager.default.removeItem(at: filePath)
+        return true
+    }
+    
+    func renameFile(at path: AppDirectories, with oldName: String, to newName: String) -> Bool
+    {
+        let oldPath = getURL(for: path).appendingPathComponent(oldName)
+        let newPath = getURL(for: path).appendingPathComponent(newName)
+        try! FileManager.default.moveItem(at: oldPath, to: newPath)
+        
+        // highlights the limitations of using return values
+        return true
+    }
+    
+    func moveFile(withName name: String, inDirectory: AppDirectories, toDirectory directory: AppDirectories) -> Bool
+    {
+        let originURL = buildFullPath(forFileName: name, inDirectory: inDirectory)
+        let destinationURL = buildFullPath(forFileName: name, inDirectory: directory)
+        // warning: constant 'success' inferred to have type '()', which may be unexpected
+        // let success =
+        try! FileManager.default.moveItem(at: originURL, to: destinationURL)
+        return true
+    }
+    
+    func copyFile(withName name: String, inDirectory: AppDirectories, toDirectory directory: AppDirectories) -> Bool
+    {
+        let originURL = buildFullPath(forFileName: name, inDirectory: inDirectory)
+        let destinationURL = buildFullPath(forFileName: name+"1", inDirectory: directory)
+        try! FileManager.default.copyItem(at: originURL, to: destinationURL)
+        return true
+    }
+    
+    func changeFileExtension(withName name: String, inDirectory: AppDirectories, toNewExtension newExtension: String) -> Bool
+    {
+        var newFileName = NSString(string:name)
+        newFileName = newFileName.deletingPathExtension as NSString
+        newFileName = (newFileName.appendingPathExtension(newExtension) as NSString?)!
+        let finalFileName:String =  String(newFileName)
+        
+        let originURL = buildFullPath(forFileName: name, inDirectory: inDirectory)
+        let destinationURL = buildFullPath(forFileName: finalFileName, inDirectory: inDirectory)
+        
+        try! FileManager.default.moveItem(at: originURL, to: destinationURL)
+        
+        return true
+    }
+} // end extension AppFileManipulation
+
+
+
+/* hearsayContent Class definition */
 
 class hearsayContent: Encodable, Decodable {
 
@@ -90,7 +287,11 @@ class hearsayContent: Encodable, Decodable {
     }
 }
 
-func encode(msg: hearsayContent) -> Data {
+/* End hearsayContent Class Definition */
+
+/* hearsayContent Extensions: Encodable(encode()), Equatable(==), Hashable(.hashValue), Comparable(<) */
+
+func hearsayContentEncode(msg: hearsayContent) -> Data {
     let jsonEncoder = JSONEncoder()
     let jsonData = try! jsonEncoder.encode(msg)
     return jsonData
@@ -106,7 +307,7 @@ extension hearsayContent: Equatable {
                 (left.timestamp == right.timestamp) && //timestamps will differ very precisely (seconds matter; a line of code matters)
                 (left.author == right.author) &&
                 (left.text == right.text) && //strings have built-in equivalence operator
-                (left.comments == right.comments) && //array of <Type_defaults> have built-in equivalence operator
+                (left.comments == right.comments) && //recursive definition of equivalence operator okay
                 (left.upvotes == right.upvotes) &&
                 (left.downvotes == right.downvotes)
         )
@@ -136,10 +337,14 @@ extension hearsayContent: Comparable{
             return l.author < r.author
         }
         else{
-            return l.timestamp < r.timestamp
+            return l.text < r.text
         }
     }
 }
+
+/* End hearsayContent Extensions */
+
+/* hearsayContent Merging Functions */
 
 func mergeContentTrees(l: [hearsayContent], r: [hearsayContent]) -> [hearsayContent]{
     let set1:Set<hearsayContent> = Set(l)
@@ -215,6 +420,23 @@ func mergeHearsayRecursive(root: hearsayContent){
     }
 }
 
+/* End hearsayContent Merging Functions */
+
+/* hearsayContent Print Helper Functions */
+
+func printHearsayContent(msg: hearsayContent, indent: Int){
+    var indentString = ""
+    for _ in 0..<indent{
+        indentString += "\t"
+    }
+    print(indentString + "HashValue: \(msg.hashValue)")
+    print(indentString + "Author: \(msg.author)")
+    print(indentString + "Timestamp: \(msg.timestamp)")
+    print(indentString + "Text: \(msg.text)")
+    print(indentString + "Upvotes: \(msg.upvotes)")
+    print(indentString + "Downvotes: \(msg.downvotes)")
+}
+
 func printHearsayRecursive(root: hearsayContent, indent: Int){
     var indentString = ""
     for _ in 0..<indent{
@@ -228,45 +450,9 @@ func printHearsayRecursive(root: hearsayContent, indent: Int){
     print(indentString + "=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~")
 }
 
+/* End hearsayContent Print Helper Functions */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* hearsayContent Testing Suite */
 
 func hashTest(){
     var test = hearsayContent(author: "Pedro", text: "lol!")
@@ -379,7 +565,6 @@ func testMakeArrayUnique(){
     }
     print(a)
 }
-
 //testMakeArrayUnique()
 
 func testMergeTopDown(){
@@ -459,7 +644,7 @@ func testRoundtripContentToDataToString(){
     
     printHearsayRecursive(root: a, indent: 0)
     
-    var serialized = encode(msg: a)
+    var serialized = hearsayContentEncode(msg: a)
     
     var str = String(data: serialized, encoding:.utf8)!
     
@@ -474,4 +659,47 @@ func testRoundtripContentToDataToString(){
     printHearsayRecursive(root: returned, indent: 0)
 }
 
-testRoundtripContentToDataToString()
+//testRoundtripContentToDataToString()
+
+/* End hearsayContent Testing Suite */
+
+/* hearsayMessage Class Definition */
+
+class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusChecking, AppFileSystemMetaData {
+    var sayIdentifier: String
+    var say: hearsayContent
+    
+    init(content: hearsayContent){
+        self.say = content
+        self.sayIdentifier = content.author + content.text
+    }
+    
+    init(filename: String){ //filename must be a file containing a JSON-encoded hearsayMessage in Documents/
+        let hearsayContentString = readFile(at: .Documents, withName: filename)
+        let raw = hearsayContentString.data(using: .utf8)!
+        self.say = hearsayContent(data: raw)
+        self.sayIdentifier = self.say.author + self.say.text
+    }
+    
+    func writeToFile(){
+        
+        var messageString: String
+        do{
+            writeFile(containing: messageString, to: .Documents, withName: self.sayIdentifier)
+        }
+        catch{
+            print("Unable to store message: \(self.sayIdentifier)")
+        }
+       messageString = String(data: hearsayContentEncode(msg: self.say), encoding:.utf8)! //self.say gets sent to a serialized Data, which initalizes an equivalent String representation.
+        
+    }
+    
+    
+}
+
+/* end hearsayMessage Class Definition */
+
+
+
+
+
