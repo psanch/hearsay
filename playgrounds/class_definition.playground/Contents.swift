@@ -211,7 +211,22 @@ extension AppFileManipulation
 /* hearsayContent Class definition */
 
 class hearsayContent: Encodable, Decodable {
-
+/*
+     The hearsayContent class can be used to define an n-ary tree.
+     At each level of the tree hierarchy, the objects are sorted by the order given in the comparison operator.
+     Sorting guarantees that all hearsayContent objects that should be merged would be in a sequence.
+     This is done so that the efficiency of merging an array of objects would be of (N + N LOG N) instead of (N + N^2).
+     Key functionality required to achieve the aforementioned goals is done by adhereing to the Comparable and Equatable protocols.
+     
+     The hearsayContent class conforms to the Encodable, Decodable protocols to go back and forth from a String formatted into JSON.
+     The String type is what is used to interact with the iOS filesystem.
+     Usage of the String type also allows the conversion to Data.
+     The Data type is what is used to interact with the MultiPeer Connectivity Framework.
+     
+     The hearsayContent class also conforms to the Hashable protocol to give a unique signature for each hearsayContent object.
+     HashValues are not static-- they are not guaranteed to stay the same across devices or even across different instances of program execution.
+     Reading the documentation for the Hashable protocol is highly recommended.
+*/
     var timestamp: Int
     
     var author: String
@@ -413,7 +428,7 @@ func mergeHearsayContents(l: hearsayContent, r: hearsayContent) -> hearsayConten
 
 func mergeHearsayContentsList(children: inout [hearsayContent]){
 /*
-     
+     Sorts and merges an array of hearsayContent objects.
  */
     var i = 0
     children.sort()
@@ -428,6 +443,9 @@ func mergeHearsayContentsList(children: inout [hearsayContent]){
 }
 
 func mergeHearsayRecursive(root: hearsayContent){
+/*
+     Merges a tree of hearsayContent objects recursively.
+ */
     mergeHearsayContentsList(children: &root.comments)
     for child in root.comments{
         mergeHearsayRecursive(root: child)
