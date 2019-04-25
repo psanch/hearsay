@@ -14,6 +14,7 @@
 		EB59A9BC22713B160092CB87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */; };
 		EB59A9C522713BCE0092CB87 /* apple_filesystem_wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */; };
 		EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */; };
+		EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		EB59A9BD22713B160092CB87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apple_filesystem_wrapper.swift; sourceTree = "<group>"; };
 		EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hearsay_classes.swift; sourceTree = "<group>"; };
+		EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hearsay_classes_tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				EB59A9B822713B160092CB87 /* Assets.xcassets */,
 				EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */,
 				EB59A9BD22713B160092CB87 /* Info.plist */,
+				EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */,
 			);
 			path = hearsay;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */,
 				EB59A9B422713B100092CB87 /* ViewController.swift in Sources */,
 				EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */,
 				EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */,
