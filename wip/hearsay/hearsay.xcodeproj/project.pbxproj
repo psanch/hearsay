@@ -8,19 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9B122713B100092CB87 /* AppDelegate.swift */; };
-		EB59A9B422713B100092CB87 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9B322713B100092CB87 /* ViewController.swift */; };
 		EB59A9B722713B100092CB87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB59A9B522713B100092CB87 /* Main.storyboard */; };
 		EB59A9B922713B160092CB87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB59A9B822713B160092CB87 /* Assets.xcassets */; };
 		EB59A9BC22713B160092CB87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */; };
 		EB59A9C522713BCE0092CB87 /* apple_filesystem_wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */; };
 		EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */; };
 		EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */; };
+		EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C9227140FA0092CB87 /* FeedScreen.swift */; };
+		EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CB227143860092CB87 /* FeedCell.swift */; };
+		EB59A9CE227144D00092CB87 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CD227144D00092CB87 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EB59A9AE22713B100092CB87 /* hearsay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hearsay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB59A9B122713B100092CB87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB59A9B322713B100092CB87 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EB59A9B622713B100092CB87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB59A9B822713B160092CB87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB59A9BB22713B160092CB87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -28,6 +29,9 @@
 		EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = apple_filesystem_wrapper.swift; sourceTree = "<group>"; };
 		EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hearsay_classes.swift; sourceTree = "<group>"; };
 		EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hearsay_classes_tests.swift; sourceTree = "<group>"; };
+		EB59A9C9227140FA0092CB87 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
+		EB59A9CB227143860092CB87 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		EB59A9CD227144D00092CB87 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +67,14 @@
 				EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */,
 				EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */,
 				EB59A9B122713B100092CB87 /* AppDelegate.swift */,
-				EB59A9B322713B100092CB87 /* ViewController.swift */,
+				EB59A9CB227143860092CB87 /* FeedCell.swift */,
+				EB59A9C9227140FA0092CB87 /* FeedScreen.swift */,
 				EB59A9B522713B100092CB87 /* Main.storyboard */,
 				EB59A9B822713B160092CB87 /* Assets.xcassets */,
 				EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */,
 				EB59A9BD22713B160092CB87 /* Info.plist */,
 				EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */,
+				EB59A9CD227144D00092CB87 /* Message.swift */,
 			);
 			path = hearsay;
 			sourceTree = "<group>";
@@ -145,10 +151,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */,
-				EB59A9B422713B100092CB87 /* ViewController.swift in Sources */,
 				EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */,
 				EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */,
 				EB59A9C522713BCE0092CB87 /* apple_filesystem_wrapper.swift in Sources */,
+				EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */,
+				EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */,
+				EB59A9CE227144D00092CB87 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

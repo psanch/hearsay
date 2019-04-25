@@ -1,10 +1,10 @@
-
+import Foundation
 
 /* hearsayContent Class definition */
 
 class hearsayContent: Encodable, Decodable {
 
-    var timestamp: Int
+    var timestamp: Date
     
     var author: String
     var text: String
@@ -15,7 +15,7 @@ class hearsayContent: Encodable, Decodable {
     var downvotes: Int
     
     init(author: String, text: String){
-        self.timestamp = 0
+        self.timestamp = Date()
         
         self.author = author
         self.text = text
@@ -37,7 +37,7 @@ class hearsayContent: Encodable, Decodable {
     }
     
     
-    init(timestamp: Int, author: String, text: String, comments: [hearsayContent], upvotes: Int, downvotes: Int){
+    init(timestamp: Date, author: String, text: String, comments: [hearsayContent], upvotes: Int, downvotes: Int){
         self.timestamp = timestamp
         self.author = author
         self.text = text
@@ -250,17 +250,31 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
     var sayIdentifier: String
     var say: hearsayContent
     
+    var timestamp: String
+    var username: String
+    var content: String
+    
     init(content: hearsayContent){
         self.say = content
-        self.sayIdentifier = content.author + content.text
+        
+        self.content = content.text
+        self.username = content.author
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        self.timestamp = formatter.string(from: content.timestamp)
+        
+        self.sayIdentifier = self.timestamp + content.author + content.text
     }
     
+    /*
     init(filename: String){ //filename must be a file containing a JSON-encoded hearsayMessage in Documents/
         let hearsayContentString = readFile(at: .Documents, withName: filename)
         let raw = hearsayContentString.data(using: .utf8)!
         self.say = hearsayContent(data: raw)
         self.sayIdentifier = self.say.author + self.say.text
     }
+    
     
     func writeToFile(){
         
@@ -274,7 +288,7 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
        messageString = String(data: hearsayContentEncode(msg: self.say), encoding:.utf8)! //self.say gets sent to a serialized Data, which initalizes an equivalent String representation.
         
     }
-    
+    */
     
 }
 

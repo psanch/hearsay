@@ -1,3 +1,4 @@
+import Foundation
 
 enum AppDirectories : String
 {
@@ -205,3 +206,39 @@ extension AppFileManipulation
     }
 } // end extension AppFileManipulation
 
+protocol AppFileSystemMetaData
+{
+    func dirlist(directory at: URL) -> [String]
+    
+    func attributes(ofFile atFullPath: URL) -> [FileAttributeKey : Any]
+}
+
+extension AppFileSystemMetaData
+{
+    func dirlist(directory at: URL) -> [String]
+    {
+        var filenames = [String]()
+        
+        let listing = try! FileManager.default.contentsOfDirectory(atPath: at.path)
+        
+        if listing.count > 0
+        {
+            
+            for file in listing
+            {
+                filenames.append(file)
+            }
+            
+            return filenames
+        }
+        else
+        {
+            return []
+        }
+    }
+    
+    func attributes(ofFile atFullPath: URL) -> [FileAttributeKey : Any]
+    {
+        return try! FileManager.default.attributesOfItem(atPath: atFullPath.path)
+    }
+} // end extension AppFileSystemMetaData
