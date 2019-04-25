@@ -166,14 +166,14 @@ func testMergeTopDown(){
      printHearsayRecursive(root: a, indent: 0)
      print("***")
      
-     mergeHearsayContentsList(children: &a.comments)
+     mergeSortedHearsayContentsArray(children: &a.comments)
      b2.sortComments()
      
      
      print("***")
      printHearsayRecursive(root: a, indent: 0)
      print("***")
-     mergeHearsayContentsList(children: &b2.comments)
+     mergeSortedHearsayContentsArray(children: &b2.comments)
      
      printHearsayRecursive(root: a, indent: 0)
      

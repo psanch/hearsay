@@ -125,7 +125,10 @@ extension hearsayContent: Hashable {
 
 extension hearsayContent: Comparable{
     static func < (l: hearsayContent, r: hearsayContent) -> Bool {
-        if(l.author != r.author){
+        if (l.timestamp != r.timestamp){
+            return l.timestamp < r.timestamp
+        }
+        else if(l.author != r.author){
             return l.author < r.author
         }
         else{
@@ -192,7 +195,7 @@ func mergeHearsayContents(l: hearsayContent, r: hearsayContent) -> hearsayConten
     return newHearsayContent
 }
 
-func mergeHearsayContentsList(children: inout [hearsayContent]){
+func mergeSortedHearsayContentsArray(children: inout [hearsayContent]){
     var i = 0
     children.sort()
     while(i < children.count-1){
@@ -206,7 +209,7 @@ func mergeHearsayContentsList(children: inout [hearsayContent]){
 }
 
 func mergeHearsayRecursive(root: hearsayContent){
-    mergeHearsayContentsList(children: &root.comments)
+    mergeSortedHearsayContentsArray(children: &root.comments)
     for child in root.comments{
         mergeHearsayRecursive(root: child)
     }
@@ -267,30 +270,56 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
         self.sayIdentifier = self.timestamp + content.author + content.text
     }
     
-    /*
-    init(filename: String){ //filename must be a file containing a JSON-encoded hearsayMessage in Documents/
-        let hearsayContentString = readFile(at: .Documents, withName: filename)
-        let raw = hearsayContentString.data(using: .utf8)!
-        self.say = hearsayContent(data: raw)
-        self.sayIdentifier = self.say.author + self.say.text
+    func writeToFile() -> Bool {
+        //Writes a JSON representation of self.say to a file named self.sayIdentifier
+        var serialized = hearsayContentEncode(msg: self.say)
+        var str = String(data: serialized, encoding:.utf8)!
+        return writeFile(containing: str, to: .Documents, withName: self.sayIdentifier)
     }
-    
-    
-    func writeToFile(){
-        
-        var messageString: String
-        do{
-            writeFile(containing: messageString, to: .Documents, withName: self.sayIdentifier)
-        }
-        catch{
-            print("Unable to store message: \(self.sayIdentifier)")
-        }
-       messageString = String(data: hearsayContentEncode(msg: self.say), encoding:.utf8)! //self.say gets sent to a serialized Data, which initalizes an equivalent String representation.
-        
-    }
-    */
     
 }
+
+extension hearsayMessage: Equatable {
+    static func == (left: hearsayMessage, right: hearsayMessage) -> Bool {
+        return left.say == right.say
+    }
+}
+
+extension hearsayMessage: Comparable{
+    static func < (l: hearsayMessage, r: hearsayMessage) -> Bool {
+        return l.sayIdentifier < r.sayIdentifier
+    }
+}
+
+func mergeSortedHearsayMessageArray(messages: inout [hearsayMessage]){
+    //Takes a sorted list of hearsayMessages and merges any subset of messages if they meet the criteria for merging.
+
+    var i = 0
+    while(i < messages.count-1){
+        if(hearsayContentsShouldBeMerged(l: messages[i].say, r: messages[i+1].say)){
+            messages[i].say = mergeHearsayContents(l: messages[i].say, r: messages[i+1].say)
+            messages.remove(at: i+1)
+            continue
+        }
+        i+=1
+    }
+}
+
+func insertHearsayMessageIntoSortedHearsayMessageArray(array messages: inout [hearsayMessage], message element: hearsayMessage) {
+    var i = 0
+
+    while(i < messages.count-1 && element[i] < element[i+1]){
+        i+=1
+    }
+
+    if(i == messages.count-1){
+        messages.append(element)
+    }
+    else{
+        messages.insert(element, at: i)
+    }
+}
+
 
 /* end hearsayMessage Class Definition */
 
