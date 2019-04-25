@@ -30,7 +30,7 @@
 		EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hearsay_classes.swift; sourceTree = "<group>"; };
 		EB59A9C722713D4C0092CB87 /* hearsay_classes_tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hearsay_classes_tests.swift; sourceTree = "<group>"; };
 		EB59A9C9227140FA0092CB87 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
-		EB59A9CB227143860092CB87 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		EB59A9CB227143860092CB87 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; usesTabs = 1; };
 		EB59A9CD227144D00092CB87 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

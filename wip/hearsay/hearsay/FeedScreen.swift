@@ -7,21 +7,16 @@
 //
 
 import UIKit
+var hearsayMessages = [hearsayMessage]()
 
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
+    @IBOutlet var feedTableView: UITableView!
     
-    var messages = [hearsayMessage]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        messages = createArray()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        hearsayMessages = createArray()
+        feedTableView.delegate = self
+        feedTableView.dataSource = self
     }
     
     func createArray() -> [hearsayMessage] {
@@ -32,7 +27,7 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         var hc: hearsayContent
         var hm: hearsayMessage
         
-        var filenames = dirlist(directory: documentsDirectoryURL())
+        let filenames = dirlist(directory: documentsDirectoryURL())
         var hearsayMessages = [hearsayMessage]()
         
         for filename in filenames {
@@ -55,18 +50,15 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return hearsayMessages.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let hearsayMessage = hearsayMessages[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedCell
+        cell.setMessage(message: hearsayMessage)
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
