@@ -10,7 +10,7 @@ import UIKit
 
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
     
-    var messages = [Message]()
+    var messages = [hearsayMessage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,29 +24,26 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func createArray() -> [Message] {
-        var tempMessages = [Message]()
+    func createArray() -> [hearsayMessage] {
+        //Returns an array of hearsayMessage for each hearsayMessage stored as a file in the user's Documents directory
+        
         var json_hc: String
         var data_hc: Data
         var hc: hearsayContent
         var hm: hearsayMessage
         
         var filenames = dirlist(directory: documentsDirectoryURL())
-        
+        var hearsayMessages = [hearsayMessage]()
         
         for filename in filenames {
             json_hc = readFile(at: .Documents, withName: filename)
             data_hc = json_hc.data(using: .utf8)!
             hc = hearsayContent(data: data_hc)
             hm = hearsayMessage(content: hc)
+            hearsayMessages.append(hm)
         }
         
-        for message in messages {
-            let newMessage = Message(timestamp: message.timestamp, username: message.username, content: message.content)
-            tempMessages.append(newMessage)
-        }
-        
-        return tempMessages
+        return hearsayMessages
     }
 
     // MARK: - Table view data source
