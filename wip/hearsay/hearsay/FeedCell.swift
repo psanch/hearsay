@@ -12,5 +12,10 @@ class FeedCell: UITableViewCell {
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var content: UILabel!
-    
+ 
+    func setMessage(message: hearsayMessage) {
+        timestamp.text = message.timestamp
+		username.text = message.username
+		content.text = message.content
+    }
 }
