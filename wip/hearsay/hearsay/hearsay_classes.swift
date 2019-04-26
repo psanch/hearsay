@@ -308,7 +308,7 @@ func mergeSortedHearsayMessageArray(messages: inout [hearsayMessage]){
 func insertHearsayMessageIntoSortedHearsayMessageArray(array messages: inout [hearsayMessage], message element: hearsayMessage) {
     var i = 0
 
-    while(i < messages.count-1 && element[i] < element[i+1]){
+    while(i < messages.count-1 && messages[i].say < messages[i+1].say){
         i+=1
     }
 
