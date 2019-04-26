@@ -14,14 +14,14 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hearsayMessages = createArray()
+        hearsayMessages = loadArrayHearsayMessagesFromFilesystem()
 
         self.feedTableView.delegate = self
         self.feedTableView.dataSource = self
-        
+
     }
     
-    func createArray() -> [hearsayMessage] {
+    func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
         //Returns an array of hearsayMessage for each hearsayMessage stored as a file in the user's Documents directory
         
         var json_hc: String
@@ -112,4 +112,10 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     }
     */
 
+}
+
+func writeArrayHearsayMessagesToFilesystem(){
+    for hm in hearsayMessages {
+        hm.writeToFile()
+    }
 }

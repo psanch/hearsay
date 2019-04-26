@@ -270,11 +270,11 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
         self.sayIdentifier = self.timestamp + content.author + content.text
     }
     
-    func writeToFile() -> Bool {
+    func writeToFile() {
         //Writes a JSON representation of self.say to a file named self.sayIdentifier
         var serialized = hearsayContentEncode(msg: self.say)
         var str = String(data: serialized, encoding:.utf8)!
-        return writeFile(containing: str, to: .Documents, withName: self.sayIdentifier)
+        writeFile(containing: str, to: .Documents, withName: self.sayIdentifier)
     }
     
 }
