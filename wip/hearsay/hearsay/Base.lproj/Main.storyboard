@@ -6,15 +6,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Feed Screen-->
+        <!--Feed-->
         <scene sceneID="nrN-B6-r1g">
             <objects>
-                <tableViewController id="C2L-Ts-mqC" customClass="FeedScreen" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Feed" id="C2L-Ts-mqC" customClass="FeedScreen" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="160" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="l74-To-cyQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" red="1" green="0.61387757089999995" blue="0.1010772447" alpha="1" colorSpace="calibratedRGB"/>
@@ -26,7 +27,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="159.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qi-F6-Ig7">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qi-F6-Ig7">
                                             <rect key="frame" x="10" y="15" width="354" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="tbi-53-on0"/>
@@ -35,7 +36,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQ3-G8-c6z">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQ3-G8-c6z">
                                             <rect key="frame" x="10" y="37" width="354" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="MwR-iz-z4n"/>
@@ -44,7 +45,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJq-IH-yeC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJq-IH-yeC">
                                             <rect key="frame" x="10" y="61" width="354" height="16.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <nil key="textColor"/>
@@ -75,6 +76,16 @@
                             <outlet property="delegate" destination="C2L-Ts-mqC" id="K9n-mt-ABS"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem systemItem="refresh" id="GeC-2Q-eBe"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="u7K-ps-djj"/>
+                        <barButtonItem systemItem="compose" id="jhk-BE-vdL">
+                            <connections>
+                                <action selector="newMessage:" destination="C2L-Ts-mqC" id="5z6-XX-9jS"/>
+                                <segue destination="skf-LY-qDZ" kind="show" id="xvm-RH-To5"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="nR8-xh-VSO">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="UJ0-yN-ggo">
@@ -87,19 +98,36 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </segmentedControl>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="feedTableView" destination="l74-To-cyQ" id="tJd-w6-L29"/>
                         <outlet property="tableView" destination="l74-To-cyQ" id="SzA-eD-4bH"/>
+                        <segue destination="skf-LY-qDZ" kind="show" id="vCd-uY-bN1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oev-lf-a8A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1139.1304347826087" y="24.776785714285712"/>
         </scene>
+        <!--Say Something-->
+        <scene sceneID="L6H-rU-yrX">
+            <objects>
+                <viewController title="Say Something" id="skf-LY-qDZ" customClass="NewMessageViewController" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W7U-zd-cDj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="APV-b5-GqT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eOP-Zu-HM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1139" y="724"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="vb9-9C-ZdT">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HVv-AI-AVO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="HVv-AI-AVO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="AaO-vq-woe">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -107,6 +135,10 @@
                         <color key="barTintColor" red="1" green="0.61387757089999995" blue="0.1010772447" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ojw-Eb-afd">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="C2L-Ts-mqC" kind="relationship" relationship="rootViewController" id="OM3-HW-qNg"/>
                     </connections>
@@ -116,4 +148,7 @@
             <point key="canvasLocation" x="228.98550724637684" y="24.776785714285712"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vCd-uY-bN1"/>
+    </inferredMetricsTieBreakers>
 </document>

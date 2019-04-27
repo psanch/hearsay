@@ -12,6 +12,8 @@ var hearsayMessages = [hearsayMessage]()
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
     @IBOutlet var feedTableView: UITableView!
     
+    // function runs anytime someone clicks the new message button
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hearsayMessages = loadArrayHearsayMessagesFromFilesystem()
