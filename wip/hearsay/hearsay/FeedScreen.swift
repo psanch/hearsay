@@ -8,11 +8,16 @@
 
 import UIKit
 var hearsayMessages = [hearsayMessage]()
+var passMessage: hearsayMessage!
 
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
     @IBOutlet var feedTableView: UITableView!
-    
+
     // function runs anytime someone clicks the new message button
+    @IBAction func newSay(_ sender: Any) {
+        performSegue(withIdentifier: "newSay", sender: self)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +26,19 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         self.feedTableView.delegate = self
         self.feedTableView.dataSource = self
 
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        passMessage = hearsayMessages[indexPath.row]
+        performSegue(withIdentifier: "detailView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailView" {
+            var viewController = segue.destination
+            viewController.passedMessage = passMessage
+            print(viewController)
+        }
     }
     
     func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
@@ -55,10 +73,7 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         return hearsayMessages
     }
 
-    // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return hearsayMessages.count
     }
 
@@ -78,18 +93,6 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     */
 
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
@@ -105,7 +108,6 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     */
 
     /*
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

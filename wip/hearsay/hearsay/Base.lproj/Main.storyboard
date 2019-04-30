@@ -81,8 +81,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="u7K-ps-djj"/>
                         <barButtonItem systemItem="compose" id="jhk-BE-vdL">
                             <connections>
-                                <action selector="newMessage:" destination="C2L-Ts-mqC" id="5z6-XX-9jS"/>
-                                <segue destination="skf-LY-qDZ" kind="show" id="xvm-RH-To5"/>
+                                <action selector="newSay:" destination="C2L-Ts-mqC" id="rIe-Gc-Ytk"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -102,7 +101,8 @@
                     <connections>
                         <outlet property="feedTableView" destination="l74-To-cyQ" id="tJd-w6-L29"/>
                         <outlet property="tableView" destination="l74-To-cyQ" id="SzA-eD-4bH"/>
-                        <segue destination="skf-LY-qDZ" kind="show" id="vCd-uY-bN1"/>
+                        <segue destination="eHw-gj-KdP" kind="show" identifier="newSay" id="I0a-Lp-l9z"/>
+                        <segue destination="5dy-FG-pv2" kind="show" identifier="detailView" id="pOc-rV-zxK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oev-lf-a8A" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -110,19 +110,93 @@
             <point key="canvasLocation" x="1139.1304347826087" y="24.776785714285712"/>
         </scene>
         <!--Say Something-->
-        <scene sceneID="L6H-rU-yrX">
+        <scene sceneID="p0Y-Qu-Xb0">
             <objects>
-                <viewController title="Say Something" id="skf-LY-qDZ" customClass="NewMessageViewController" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="W7U-zd-cDj">
+                <viewController title="Say Something" id="eHw-gj-KdP" customClass="NewSayViewController" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mIZ-kq-mdQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posting as USERNAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXR-Gq-kLa">
+                                <rect key="frame" x="20" y="20" width="374" height="22.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vMQ-k7-ZDG">
+                                <rect key="frame" x="20" y="50" width="374" height="314"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="APV-b5-GqT"/>
+                        <constraints>
+                            <constraint firstItem="bXR-Gq-kLa" firstAttribute="leading" secondItem="QgX-CG-BH6" secondAttribute="leading" constant="20" id="0tN-rw-HzX"/>
+                            <constraint firstItem="QgX-CG-BH6" firstAttribute="trailing" secondItem="bXR-Gq-kLa" secondAttribute="trailing" constant="20" id="4ey-o1-fYv"/>
+                            <constraint firstItem="vMQ-k7-ZDG" firstAttribute="top" secondItem="bXR-Gq-kLa" secondAttribute="bottom" constant="8" id="5bZ-kG-Zgm"/>
+                            <constraint firstItem="QgX-CG-BH6" firstAttribute="trailing" secondItem="vMQ-k7-ZDG" secondAttribute="trailing" constant="20" id="cAV-II-6cF"/>
+                            <constraint firstItem="bXR-Gq-kLa" firstAttribute="top" secondItem="QgX-CG-BH6" secondAttribute="top" constant="20" id="deK-Q2-Jxw"/>
+                            <constraint firstItem="vMQ-k7-ZDG" firstAttribute="leading" secondItem="QgX-CG-BH6" secondAttribute="leading" constant="20" id="gkY-4F-a5C"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QgX-CG-BH6"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eOP-Zu-HM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LzG-Z0-0gf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1139" y="724"/>
+            <point key="canvasLocation" x="1137.68115942029" y="715.84821428571422"/>
+        </scene>
+        <!--Cell Detail View Controller-->
+        <scene sceneID="clX-cu-NhE">
+            <objects>
+                <viewController id="5dy-FG-pv2" customClass="CellDetailViewController" customModule="hearsay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cQS-IS-Qup">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timestamp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLh-xe-jUo">
+                                <rect key="frame" x="20" y="20" width="344" height="21.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmU-oo-B5g">
+                                <rect key="frame" x="20" y="49.5" width="344" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSB-4Q-B4g">
+                                <rect key="frame" x="20" y="85.5" width="344" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5ER-K5-yWk" firstAttribute="trailing" secondItem="cSB-4Q-B4g" secondAttribute="trailing" constant="50" id="0jC-V2-GCg"/>
+                            <constraint firstItem="5ER-K5-yWk" firstAttribute="trailing" secondItem="TmU-oo-B5g" secondAttribute="trailing" constant="50" id="SF7-dr-zaM"/>
+                            <constraint firstItem="TmU-oo-B5g" firstAttribute="leading" secondItem="5ER-K5-yWk" secondAttribute="leading" constant="20" id="TZx-9O-OeE"/>
+                            <constraint firstItem="YLh-xe-jUo" firstAttribute="leading" secondItem="5ER-K5-yWk" secondAttribute="leading" constant="20" id="W40-Vr-yFg"/>
+                            <constraint firstItem="TmU-oo-B5g" firstAttribute="top" secondItem="YLh-xe-jUo" secondAttribute="bottom" constant="8" id="brA-pt-LFq"/>
+                            <constraint firstItem="cSB-4Q-B4g" firstAttribute="top" secondItem="TmU-oo-B5g" secondAttribute="bottom" constant="15" id="lbL-nB-3gC"/>
+                            <constraint firstItem="cSB-4Q-B4g" firstAttribute="leading" secondItem="5ER-K5-yWk" secondAttribute="leading" constant="20" id="moL-Ds-hUg"/>
+                            <constraint firstItem="YLh-xe-jUo" firstAttribute="top" secondItem="5ER-K5-yWk" secondAttribute="top" constant="20" id="tkT-WI-35w"/>
+                            <constraint firstItem="5ER-K5-yWk" firstAttribute="trailing" secondItem="YLh-xe-jUo" secondAttribute="trailing" constant="50" id="x3D-Jx-BBw"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5ER-K5-yWk"/>
+                    </view>
+                    <connections>
+                        <outlet property="content" destination="cSB-4Q-B4g" id="VEA-og-mjF"/>
+                        <outlet property="timestamp" destination="YLh-xe-jUo" id="iR5-bU-9ms"/>
+                        <outlet property="username" destination="TmU-oo-B5g" id="nSU-o0-D8N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ugc-KU-8SG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1988" y="25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vb9-9C-ZdT">
@@ -148,7 +222,4 @@
             <point key="canvasLocation" x="228.98550724637684" y="24.776785714285712"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="vCd-uY-bN1"/>
-    </inferredMetricsTieBreakers>
 </document>
