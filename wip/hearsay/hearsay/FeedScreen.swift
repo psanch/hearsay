@@ -22,23 +22,13 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     override func viewDidLoad() {
         super.viewDidLoad()
         hearsayMessages = loadArrayHearsayMessagesFromFilesystem()
-
         self.feedTableView.delegate = self
         self.feedTableView.dataSource = self
-
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         passMessage = hearsayMessages[indexPath.row]
         performSegue(withIdentifier: "detailView", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailView" {
-            var viewController = segue.destination
-            viewController.passedMessage = passMessage
-            print(viewController)
-        }
     }
     
     func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
@@ -63,11 +53,7 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         if true {
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "pedro", text: "hello my name is pedro i study compuer science and engineering and like to ride my skateboard. I sometimes bird around even though those are the most annoying invention. lets see how the app manages a content that goes past the height of the cell like if it gives you the dot dot dot or if it will overwrite the next cell or just do something unpredictable")))
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "maddee", text: "goodbye")))
-            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "eoin", text: "lyons")))
-            
-            for item in hearsayMessages{
-                printHearsayContent(msg: item.say, indent: 0)
-            }
+            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "eoin", text: "im a smart dude")))
         }
         
         return hearsayMessages

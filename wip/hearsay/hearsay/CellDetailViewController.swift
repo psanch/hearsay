@@ -18,10 +18,9 @@ class CellDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        timestamp.text = passedMessage.timestamp
-        username.text = passedMessage.username
-        content.text = passedMessage.content
+        timestamp.text = passMessage.timestamp
+        username.text = passMessage.username
+        content.text = passMessage.content
     }
     
 
