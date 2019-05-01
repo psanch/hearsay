@@ -43,6 +43,9 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         var hearsayMessages = [hearsayMessage]()
         
         for filename in filenames {
+            if(filename == ".DS_Store"){
+                continue
+            }
             json_hc = readFile(at: .Documents, withName: filename)
             data_hc = json_hc.data(using: .utf8)!
             hc = hearsayContent(data: data_hc)
@@ -50,12 +53,13 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
             hearsayMessages.append(hm)
         }
         
-        if true {
+        if false {
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "pedro", text: "hello my name is pedro i study compuer science and engineering and like to ride my skateboard. I sometimes bird around even though those are the most annoying invention. lets see how the app manages a content that goes past the height of the cell like if it gives you the dot dot dot or if it will overwrite the next cell or just do something unpredictable")))
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "maddee", text: "goodbye")))
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "eoin", text: "im a smart dude")))
         }
         
+        hearsayMessages.sort(by: >)
         return hearsayMessages
     }
 

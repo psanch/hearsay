@@ -308,11 +308,11 @@ func mergeSortedHearsayMessageArray(messages: inout [hearsayMessage]){
 func insertHearsayMessageIntoSortedHearsayMessageArray(array messages: inout [hearsayMessage], message element: hearsayMessage) {
     var i = 0
 
-    while(i < messages.count-1 && messages[i].say < messages[i+1].say){
+    while(i < messages.count && element.say > messages[i].say){
         i+=1
     }
 
-    if(i == messages.count-1){
+    if(i == messages.count){
         messages.append(element)
     }
     else{

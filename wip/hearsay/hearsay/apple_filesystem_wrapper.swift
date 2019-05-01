@@ -151,7 +151,7 @@ extension AppFileManipulation
         let filePath = getURL(for: path).path + "/" + name
         let fileContents = FileManager.default.contents(atPath: filePath)
         let fileContentsAsString = String(bytes: fileContents!, encoding: .utf8)
-        print(fileContentsAsString!)
+        //print(fileContentsAsString!)
         return fileContentsAsString!
     }
     
