@@ -34,7 +34,7 @@ class NewSayViewController: UIViewController, UITextViewDelegate {
         if sayContent.textColor != UIColor.lightGray || sayContent.text != nil {
             // create hearsayContent here
             let hc = hearsayContent(author: myUsername, text: sayContent.text)
-            let hm = hearsayMessage(content: hc)
+            let hm = hearsayMessage(content: hc, isSay: true)
             
             insertHearsayMessageIntoSortedHearsayMessageArray(array: &hearsayMessages, message: hm)
             hm.writeToFile()

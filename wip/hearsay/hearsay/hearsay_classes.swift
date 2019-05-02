@@ -257,7 +257,9 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
     var username: String
     var content: String
     
-    init(content: hearsayContent){
+    var sayFlag: Bool
+    
+    init(content: hearsayContent, isSay: Bool){
         self.say = content
         
         self.content = content.text
@@ -268,6 +270,7 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
         self.timestamp = formatter.string(from: content.timestamp)
         
         self.sayIdentifier = self.timestamp + content.author + content.text
+        self.sayFlag = isSay
     }
     
     func writeToFile() {
