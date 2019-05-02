@@ -53,10 +53,11 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
             hearsayMessages.append(hm)
         }
         
-        if false {
+        if true {
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "pedro", text: "hello my name is pedro i study compuer science and engineering and like to ride my skateboard. I sometimes bird around even though those are the most annoying invention. lets see how the app manages a content that goes past the height of the cell like if it gives you the dot dot dot or if it will overwrite the next cell or just do something unpredictable")))
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "maddee", text: "goodbye")))
             hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "eoin", text: "im a smart dude")))
+            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "abby", text: "im going skydiving the day before mother's day i hope my mom doesnt get mad!!!!! jumping out of a plane scares me")))
         }
         
         hearsayMessages.sort(by: >)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */; };
+		1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3069E227A6A9300902ED6 /* InitialViewController.swift */; };
 		1FC5E2F12278A7BD0046FF6F /* NewSayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */; };
 		EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9B122713B100092CB87 /* AppDelegate.swift */; };
 		EB59A9B722713B100092CB87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB59A9B522713B100092CB87 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDetailViewController.swift; sourceTree = "<group>"; };
+		1FA3069E227A6A9300902ED6 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSayViewController.swift; sourceTree = "<group>"; };
 		EB59A9AE22713B100092CB87 /* hearsay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hearsay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB59A9B122713B100092CB87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,10 +73,11 @@
 				EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */,
 				EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */,
 				EB59A9B122713B100092CB87 /* AppDelegate.swift */,
+				1FA3069E227A6A9300902ED6 /* InitialViewController.swift */,
 				EB59A9C9227140FA0092CB87 /* FeedScreen.swift */,
 				EB59A9CB227143860092CB87 /* FeedCell.swift */,
-				1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */,
 				1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */,
+				1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */,
 				EB59A9B522713B100092CB87 /* Main.storyboard */,
 				EB59A9B822713B160092CB87 /* Assets.xcassets */,
 				EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */,
@@ -161,6 +164,7 @@
 				EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */,
 				EB59A9C522713BCE0092CB87 /* apple_filesystem_wrapper.swift in Sources */,
 				1FC5E2F12278A7BD0046FF6F /* NewSayViewController.swift in Sources */,
+				1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */,
 				EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */,
 				1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */,
 				EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */,

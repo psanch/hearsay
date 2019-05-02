@@ -8,23 +8,31 @@
 
 import UIKit
 
-class NewSayViewController: UIViewController {
-
+class NewSayViewController: UIViewController, UITextViewDelegate {
+    @IBOutlet weak var postingAs: UILabel!
+    @IBOutlet weak var sayContent: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        postingAs.text = "Posting as: " + myUsername
+        
+        sayContent.text = "What do you want to say?"
+        sayContent.textColor = UIColor.lightGray
+        sayContent.delegate = self
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textViewDidBeginEditing(_ sayContent: UITextView) {
+        if sayContent.textColor == UIColor.lightGray {
+            sayContent.text = nil
+            sayContent.textColor = UIColor.black
+        }
     }
-    */
+    
+    @IBAction func saySomethingButton(_ sender: Any) {
+        if sayContent.textColor != UIColor.lightGray || sayContent.text != nil {
+            // create hearsayContent here
+        }
+    }
+    
 
 }
