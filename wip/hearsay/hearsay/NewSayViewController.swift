@@ -31,8 +31,15 @@ class NewSayViewController: UIViewController, UITextViewDelegate {
     @IBAction func saySomethingButton(_ sender: Any) {
         if sayContent.textColor != UIColor.lightGray || sayContent.text != nil {
             // create hearsayContent here
+            let hc = hearsayContent(author: myUsername, text: sayContent.text)
+            let hm = hearsayMessage(content: hc)
+            
+            insertHearsayMessageIntoSortedHearsayMessageArray(array: &hearsayMessages, message: hm)
+            hm.writeToFile()
+            
+            //performSegue(withIdentifier: <#T##String#>, sender: self)
+            
         }
     }
     
-
 }
