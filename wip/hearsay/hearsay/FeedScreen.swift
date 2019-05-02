@@ -31,6 +31,11 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         performSegue(withIdentifier: "detailView", sender: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
         //Returns an array of hearsayMessage for each hearsayMessage stored as a file in the user's Documents directory
         
