@@ -31,5 +31,7 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // if myUsername already has a name
+        // perform segue to feed
     }
 }

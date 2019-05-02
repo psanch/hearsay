@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */; };
+		1F7064D9227BB0CD00E6ACD7 /* NewCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */; };
 		1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3069E227A6A9300902ED6 /* InitialViewController.swift */; };
 		1FC5E2F12278A7BD0046FF6F /* NewSayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */; };
 		EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9B122713B100092CB87 /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDetailViewController.swift; sourceTree = "<group>"; };
+		1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommentViewController.swift; sourceTree = "<group>"; };
 		1FA3069E227A6A9300902ED6 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSayViewController.swift; sourceTree = "<group>"; };
 		EB59A9AE22713B100092CB87 /* hearsay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hearsay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				EB59A9CB227143860092CB87 /* FeedCell.swift */,
 				1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */,
 				1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */,
+				1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */,
 				EB59A9B522713B100092CB87 /* Main.storyboard */,
 				EB59A9B822713B160092CB87 /* Assets.xcassets */,
 				EB59A9BA22713B160092CB87 /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7064D9227BB0CD00E6ACD7 /* NewCommentViewController.swift in Sources */,
 				EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */,
 				EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */,
 				EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */,

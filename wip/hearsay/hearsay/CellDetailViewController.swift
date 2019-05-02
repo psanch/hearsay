@@ -24,4 +24,10 @@ class CellDetailViewController: UIViewController {
         content.text = passMessage.content
         comments.text = String(passMessage.say.comments.count) + " Comments"
     }
+    
+    @IBAction func newComment(_ sender: Any) {
+        // function runs anytime someone clicks the reply button
+        performSegue(withIdentifier: "newComment", sender: self)
+    }
+    
 }
