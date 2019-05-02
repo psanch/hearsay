@@ -13,8 +13,8 @@ var passMessage: hearsayMessage!
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
     @IBOutlet var feedTableView: UITableView!
 
-    // function runs anytime someone clicks the new message button
     @IBAction func newSay(_ sender: Any) {
+        // function runs anytime someone clicks the new message button
         performSegue(withIdentifier: "newSay", sender: self)
     }
     
@@ -38,7 +38,6 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     
     func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
         //Returns an array of hearsayMessage for each hearsayMessage stored as a file in the user's Documents directory
-        
         var json_hc: String
         var data_hc: Data
         var hc: hearsayContent
@@ -79,39 +78,6 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         cell.setMessage(message: hearsayMessage)
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 func writeArrayHearsayMessagesToFilesystem(){

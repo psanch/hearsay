@@ -24,16 +24,4 @@ class CellDetailViewController: UIViewController {
         content.text = passMessage.content
         comments.text = String(passMessage.say.comments.count) + " Comments"
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

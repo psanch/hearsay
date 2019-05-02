@@ -16,12 +16,14 @@ class NewSayViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         postingAs.text = "Posting as: " + myUsername
         
+        // sets placeholder
         sayContent.text = "What do you want to say?"
         sayContent.textColor = UIColor.lightGray
         sayContent.delegate = self
     }
     
     func textViewDidBeginEditing(_ sayContent: UITextView) {
+        // removes placeholder text
         if sayContent.textColor == UIColor.lightGray {
             sayContent.text = nil
             sayContent.textColor = UIColor.black
@@ -36,9 +38,7 @@ class NewSayViewController: UIViewController, UITextViewDelegate {
             
             insertHearsayMessageIntoSortedHearsayMessageArray(array: &hearsayMessages, message: hm)
             hm.writeToFile()
-            
-            performSegue(withIdentifier: "returnToFeedFromNewSay", sender: self)
-            
+            navigationController?.popViewController(animated: true)
         }
     }
     
