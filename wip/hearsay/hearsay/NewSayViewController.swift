@@ -37,7 +37,7 @@ class NewSayViewController: UIViewController, UITextViewDelegate {
             insertHearsayMessageIntoSortedHearsayMessageArray(array: &hearsayMessages, message: hm)
             hm.writeToFile()
             
-            //performSegue(withIdentifier: "FeedScreen", sender: self)
+            performSegue(withIdentifier: "returnToFeedFromNewSay", sender: self)
             
         }
     }
