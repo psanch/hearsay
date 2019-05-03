@@ -19,10 +19,16 @@ class CellDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timestamp.text = passMessage.timestamp
-        username.text = passMessage.username
-        content.text = passMessage.content
-        comments.text = String(passMessage.say.comments.count) + " Comments"
+        timestamp.text = hc_stack[0].getTimestamp()
+        username.text = hc_stack[0].author
+        content.text = hc_stack[0].text
+        comments.text = String(hc_stack[0].comments.count) + " Comments"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //Refresh the comment count
+        comments.text = String(hc_stack[0].comments.count) + " Comments"
     }
     
     @IBAction func newComment(_ sender: Any) {

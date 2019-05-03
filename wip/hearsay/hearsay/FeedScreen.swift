@@ -8,7 +8,9 @@
 
 import UIKit
 var hearsayMessages = [hearsayMessage]()
-var passMessage: hearsayMessage!
+
+var hc_stack = [hearsayContent]() //Stack where you insert/pop at index 0. The element at index 0 is representative of the "deepest" comment accessed by the user after they start accessing detail view(s). !!! Need to figure out where to pop the top of the stack off (when the "back" button is pressed) !!!
+var hm_pass: hearsayMessage! //Used to reference the top-level message (hm_pass.say == hc_stack[hc_stack.count-1]) for the purposes of committing to the filesystem if any changes are made to any of its children hearsayContent
 
 class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking {
     @IBOutlet var feedTableView: UITableView!
@@ -27,7 +29,15 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        passMessage = hearsayMessages[indexPath.row]
+        //Make sure that no previous comment trees accidentally kept in hc_stack
+        hc_stack = []
+        
+        //Let the top of the stack be at index 0
+        hc_stack.insert(hearsayMessages[indexPath.row].say, at: 0)
+        
+        //Preserve the top-level hearsayMessage
+        hm_pass = hearsayMessages[indexPath.row]
+        
         performSegue(withIdentifier: "detailView", sender: self)
     }
     

@@ -77,6 +77,12 @@ class hearsayContent: Encodable, Decodable {
     func sortComments(){
         self.comments.sort()
     }
+    
+    func getTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+        return formatter.string(from: self.timestamp)
+    }
 }
 
 /* End hearsayContent Class Definition */
