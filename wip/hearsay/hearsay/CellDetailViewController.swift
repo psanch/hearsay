@@ -55,4 +55,15 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
         cell.setComment(comment: comment)
         return cell
     }
+
+    /* I think this is what is needed to recursively be able to navigate comments. Two issues:
+     1) There is no segue in the storyboard and I'm not sure how to fix it. The error that was thrown is: """ "*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: 'Receiver (<hearsay.CellDetailViewController: 0x7fb46dd46ed0>) has no segue with identifier 'detailView''""
+     2) When the back button is pressed, the element at hc_stack[0] needs to be popped. Not sure how/where to do this. This is so that when I go back, the previous comment I was previously looking at gets loaded into the detailView. Maybe we have to override the popViewController() func and include a hc_stack.remove()?
+     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Let the top of the stack be at index 0
+        hc_stack.insert(hc_stack[0].comments[indexPath.row], at: 0)
+        
+        performSegue(withIdentifier: "detailView", sender: self)
+    }*/
 }
