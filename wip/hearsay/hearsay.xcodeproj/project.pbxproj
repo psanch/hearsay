@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F12B6DC227F7D3F001E3421 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F12B6DB227F7D3F001E3421 /* CommentCell.swift */; };
 		1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */; };
 		1F7064D9227BB0CD00E6ACD7 /* NewCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */; };
 		1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3069E227A6A9300902ED6 /* InitialViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F12B6DB227F7D3F001E3421 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellDetailViewController.swift; sourceTree = "<group>"; };
 		1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommentViewController.swift; sourceTree = "<group>"; };
 		1FA3069E227A6A9300902ED6 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				EB59A9C9227140FA0092CB87 /* FeedScreen.swift */,
 				EB59A9CB227143860092CB87 /* FeedCell.swift */,
 				1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */,
+				1F12B6DB227F7D3F001E3421 /* CommentCell.swift */,
 				1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */,
 				1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */,
 				EB59A9B522713B100092CB87 /* Main.storyboard */,
@@ -173,6 +176,7 @@
 				1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */,
 				EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */,
 				EB59A9CE227144D00092CB87 /* Message.swift in Sources */,
+				1F12B6DC227F7D3F001E3421 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F7NF7M3K66;
 				INFOPLIST_FILE = hearsay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F7NF7M3K66;
 				INFOPLIST_FILE = hearsay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
