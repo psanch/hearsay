@@ -20,6 +20,9 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         performSegue(withIdentifier: "newSay", sender: self)
     }
     
+    @IBAction func refreshButton(_ sender: Any) {
+        // listening funcitonality here
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

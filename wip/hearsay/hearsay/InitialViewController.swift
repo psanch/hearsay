@@ -20,7 +20,6 @@ class InitialViewController: UIViewController, UITextFieldDelegate {
         else {
             let alert = UIAlertController(title: "You need to input a username to continue", message: nil, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-            //alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
     }
