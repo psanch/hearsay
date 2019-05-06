@@ -24,6 +24,20 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         performSegue(withIdentifier: "newSay", sender: self)
     }
     
+    @IBAction func upvoteBtn(_ sender: AnyObject) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
+        let indexPath = tableView.indexPath(for: cell)
+        let content = hearsayMessages[((indexPath?.row)!)].say
+        cell.upvote(content: content)
+    }
+    
+    @IBAction func downvoteBtn(_ sender: AnyObject) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
+        let indexPath = tableView.indexPath(for: cell)
+        let content = hearsayMessages[((indexPath?.row)!)].say
+        cell.downvote(content: content)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         hearsayMessages = loadArrayHearsayMessagesFromFilesystem()
