@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-
-class CellDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CellDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MCSessionDelegate, MCBrowserViewControllerDelegate {
+    
     @IBOutlet weak var timestamp: UILabel!
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var content: UILabel!
@@ -20,6 +21,8 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /* UI Setup: */
         commentsTableView.delegate = self
         commentsTableView.dataSource = self
         
@@ -27,6 +30,14 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
         username.text = hc_stack[0].author
         content.text = hc_stack[0].text
         comments.text = String(hc_stack[0].comments.count) + " Comments"
+        
+        /* Networking Setup: */
+        peerID = MCPeerID(displayName: hm_pass.sayIdentifier)
+        mcSession = MCSession(peer: peerID)
+        mcSession.delegate = self
+        
+       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,10 +45,6 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
         //Refresh the comment count
         comments.text = String(hc_stack[0].comments.count) + " Comments"
         commentsTableView.reloadData()
-    }
-    
-    @IBAction func shareMessageButton(_ sender: Any) {
-        // resharing functionality here
     }
     
     @IBAction func newComment(_ sender: Any) {
@@ -66,4 +73,75 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
         
         performSegue(withIdentifier: "detailView", sender: self)
     }*/
+    
+    /* Begin Networking */
+    
+    var peerID:MCPeerID!
+    var mcSession:MCSession!
+    var mcAdvertiserAssistant:MCAdvertiserAssistant!
+    
+    @IBAction func shareMessageButton(_ sender: Any) {
+        //Kill any previous messages being broadcasted/listened for.
+        hosting = true
+        mcSession.disconnect()
+        
+        self.mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "hearsay", discoveryInfo: nil, session: self.mcSession)
+        self.mcAdvertiserAssistant.start()
+        
+        let waitActionSheet = UIAlertController(title: "Broadcasting...", message: "Hearsay users must be in range and listening to receive your message. While you can read this information, your message is being broadcasted.", preferredStyle: .actionSheet)
+        
+        waitActionSheet.addAction(UIAlertAction(title: "Stop Broadcasting", style: .destructive, handler: {
+            (action) in
+            self.mcSession.disconnect()
+            hosting = false
+        }))
+        
+        waitActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(waitActionSheet, animated: true, completion: nil /* Probably start a function to send message here. Maybe some form of loop? */)
+        //func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil)
+            
+        
+    }
+    
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        //prepare hearsayMessage for transmition
+        if session.connectedPeers.count > 0{
+            let hm_msg:Data! = hearsayMessageEncode(msg: hm_pass)
+            
+            do{
+                try session.send(hm_msg!, toPeers: session.connectedPeers, with: .reliable)
+                
+            }
+            catch{
+                print("Error sending message :(")
+            }
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        
+        
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        
+    }
+    
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

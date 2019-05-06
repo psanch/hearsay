@@ -279,6 +279,20 @@ class hearsayMessage: Encodable, Decodable, AppFileManipulation, AppFileStatusCh
         self.sayFlag = isSay
     }
     
+    init(raw: Data){
+        let jsonDecoder = JSONDecoder()
+        let msg = try! jsonDecoder.decode(hearsayMessage.self, from: raw)
+        
+        self.timestamp = msg.timestamp
+        self.username = msg.username
+        self.content = msg.content
+        
+        self.sayFlag = false
+        self.say = msg.say
+        
+        self.sayIdentifier = msg.sayIdentifier
+    }
+    
     func writeToFile() {
         //Writes a JSON representation of self.say to a file named self.sayIdentifier
         var serialized = hearsayContentEncode(msg: self.say)
@@ -327,6 +341,15 @@ func insertHearsayMessageIntoSortedHearsayMessageArray(array messages: inout [he
     else{
         messages.insert(element, at: i)
     }
+}
+
+func hearsayMessageEncode(msg: hearsayMessage) -> Data {
+    let jsonEncoder = JSONEncoder()
+    let jsonData = try! jsonEncoder.encode(msg)
+    return jsonData
+    
+    //Example of how to encode Data -> String
+    //let jsonString = String(data: jsonData, encoding: .utf8)
 }
 
 
