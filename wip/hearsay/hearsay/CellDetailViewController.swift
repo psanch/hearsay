@@ -15,6 +15,10 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var comments: UILabel!
+    @IBOutlet weak var voteCount: UILabel!
+    @IBOutlet weak var upBtn: UILabel!
+    @IBOutlet weak var dnBtn: UILabel!
+    
     
     @IBOutlet weak var commentsTableView: UITableView!
     var passedMessage: hearsayMessage!
@@ -30,14 +34,19 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
         username.text = hc_stack[0].author
         content.text = hc_stack[0].text
         comments.text = String(hc_stack[0].comments.count) + " Comments"
+        voteCount.text = String(hc_stack[0].getVotes())
+        let upvote = UITapGestureRecognizer(target: self, action: #selector(CellDetailViewController.upVote))
+        upBtn.addGestureRecognizer(upvote)
+        upBtn.textColor = UIColor.lightGray
+        let dnvote = UITapGestureRecognizer(target: self, action: #selector(CellDetailViewController.dnVote))
+        dnBtn.addGestureRecognizer(dnvote)
+        dnBtn.textColor = UIColor.lightGray
+
         
         /* Networking Setup: */
-        peerID = MCPeerID(displayName: hm_pass.sayIdentifier)
+        peerID = MCPeerID(displayName: "HearsayUser")
         mcSession = MCSession(peer: peerID)
         mcSession.delegate = self
-        
-       
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +59,52 @@ class CellDetailViewController: UIViewController, UITableViewDataSource, UITable
     @IBAction func newComment(_ sender: Any) {
         // function runs anytime someone clicks the reply button
         performSegue(withIdentifier: "newComment", sender: self)
+    }
+    
+    @objc func upVote() {
+        // hasnt up voted yet
+        if upBtn.textColor == UIColor.lightGray {
+            
+            // if they had down voted already
+            if dnBtn.textColor == UIColor.orange {
+                hc_stack[0].downvotes -= 1
+                dnBtn.textColor = UIColor.lightGray
+            }
+            
+            hc_stack[0].upvote()
+            voteCount.text = String(hc_stack[0].getVotes())
+            upBtn.textColor = UIColor.orange
+        }
+        
+        //had already upvoted (should take it away)
+        else if upBtn.textColor == UIColor.orange {
+            hc_stack[0].upvotes -= 1
+            voteCount.text = String(hc_stack[0].getVotes())
+            upBtn.textColor = UIColor.lightGray
+        }
+    }
+ 
+    @objc func dnVote() {
+        // hasnt down voted yet
+        if dnBtn.textColor == UIColor.lightGray {
+            
+            // if they had up voted already
+            if upBtn.textColor == UIColor.orange {
+                hc_stack[0].upvotes -= 1
+                upBtn.textColor = UIColor.lightGray
+            }
+            
+            hc_stack[0].downvote()
+            voteCount.text = String(hc_stack[0].getVotes())
+            dnBtn.textColor = UIColor.orange
+        }
+        
+        // had already downvoted (should take it away)
+        else if dnBtn.textColor == UIColor.orange {
+            hc_stack[0].downvotes -= 1
+            voteCount.text = String(hc_stack[0].getVotes())
+            dnBtn.textColor = UIColor.lightGray
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
