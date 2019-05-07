@@ -8,10 +8,13 @@
 
 import UIKit
 var myUsername: String = ""
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+
 
 class InitialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var myName: UITextField!
-    
+
     @IBAction func setUsername(_ sender: Any) {
         if myName.text != "" {
             myUsername = myName.text!

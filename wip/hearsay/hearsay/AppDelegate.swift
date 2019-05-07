@@ -13,11 +13,12 @@ import Foundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var mpcManager: MPCManager!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().tintColor = UIColor.white        
+        mpcManager = MPCManager()
         return true
     }
 
@@ -44,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Raise notification to save data
         //writeArrayHearsayMessagesToFilesystem()
+        
+        self.mpcManager.browser.stopBrowsingForPeers()
+
     }
 
 

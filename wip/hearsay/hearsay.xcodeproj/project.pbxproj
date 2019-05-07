@@ -22,6 +22,7 @@
 		EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C9227140FA0092CB87 /* FeedScreen.swift */; };
 		EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CB227143860092CB87 /* FeedCell.swift */; };
 		EB59A9CE227144D00092CB87 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CD227144D00092CB87 /* Message.swift */; };
+		EBF241A4228000ED000A20CB /* multipeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF241A3228000ED000A20CB /* multipeer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		EB59A9C9227140FA0092CB87 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
 		EB59A9CB227143860092CB87 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; usesTabs = 1; };
 		EB59A9CD227144D00092CB87 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		EBF241A3228000ED000A20CB /* multipeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = multipeer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				EB59A9C9227140FA0092CB87 /* FeedScreen.swift */,
 				EB59A9CB227143860092CB87 /* FeedCell.swift */,
 				1F34A6D92278ACC100DB9BF9 /* CellDetailViewController.swift */,
+				EBF241A3228000ED000A20CB /* multipeer.swift */,
 				1F12B6DB227F7D3F001E3421 /* CommentCell.swift */,
 				1FC5E2F02278A7BD0046FF6F /* NewSayViewController.swift */,
 				1F7064D8227BB0CD00E6ACD7 /* NewCommentViewController.swift */,
@@ -173,6 +176,7 @@
 				1FC5E2F12278A7BD0046FF6F /* NewSayViewController.swift in Sources */,
 				1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */,
 				EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */,
+				EBF241A4228000ED000A20CB /* multipeer.swift in Sources */,
 				1F34A6DA2278ACC100DB9BF9 /* CellDetailViewController.swift in Sources */,
 				EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */,
 				EB59A9CE227144D00092CB87 /* Message.swift in Sources */,
