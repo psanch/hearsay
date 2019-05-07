@@ -16,33 +16,27 @@ class FeedCell: UITableViewCell {
 	@IBOutlet weak var upVote: UIButton!
 	@IBOutlet weak var downVote: UIButton!
 	
-	func setMessage(message: hearsayMessage) {
+	func setMessage(message: hearsayMessage, index: Int) {
         timestamp.text = message.timestamp
 		username.text = message.username
 		content.text = message.content
 		voteCount.text = String(message.say.getVotes())
+		upVote.tag = index // this apparently doesnt do the right thing
     }
 	
 	func upvote(content: hearsayContent) {
-		// hasnt voted yet
-		if upVote.titleColor(for: .normal) == UIColor.lightGray {
-			
-			// if they had downvoted already
-			if downVote.titleColor(for: .normal) == UIColor.orange {
-				content.downvotes -= 1
-				downVote.setTitleColor(UIColor.lightGray, for: .normal)
-			}
-			
-			content.upvote()
-			voteCount.text = String(content.getVotes())
-			upVote.setTitleColor(UIColor.orange, for: .normal)
-		}
+		print(content.author) // this and below keep printing the info from cell 0 which is the index so this is the biggest problem
+		print(upVote.tag)
+		//content.upvote()
+		//voteCount.text = String(content.getVotes())
+		//print(content.getVotes())
+		//print("change color here")
 	}
 	
 	func downvote(content: hearsayContent) {
 		// hasnt voted yet
-		if downVote.titleColor(for: .normal) == UIColor.lightGray {
-			
+		/*if downVote.titleColor(for: .normal) == UIColor.lightGray {
+		
 			// if they had upvoted already
 			if upVote.titleColor(for: .normal) == UIColor.orange {
 				content.upvotes -= 1
@@ -52,6 +46,7 @@ class FeedCell: UITableViewCell {
 			content.downvote()
 			voteCount.text = String(content.getVotes())
 			downVote.setTitleColor(UIColor.orange, for: .normal)
-		}
+		}*/
+		print("downvote")
 	}
 }

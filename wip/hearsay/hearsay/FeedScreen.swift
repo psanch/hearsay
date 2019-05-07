@@ -24,20 +24,23 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         performSegue(withIdentifier: "newSay", sender: self)
     }
     
-    @IBAction func upvoteBtn(_ sender: AnyObject) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
-        let indexPath = tableView.indexPath(for: cell)
-        let content = hearsayMessages[((indexPath?.row)!)].say
-        cell.upvote(content: content)
+/*************************************/
+    // voting buttons for cells
+    @IBAction func upvoteBtn(_ sender: Any) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell // get the cell that was clicked on
+        let indexPath = cell.upVote.tag // trying to get the tag for the buttons within each cell to be the index
+        let content = hearsayMessages[indexPath].say // pick the right content
+        cell.upvote(content: content) // call the appropriate function within feedcell.swift
     }
     
     @IBAction func downvoteBtn(_ sender: AnyObject) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
-        let indexPath = tableView.indexPath(for: cell)
-        let content = hearsayMessages[((indexPath?.row)!)].say
+        let indexPath = cell.downVote.tag
+        let content = hearsayMessages[indexPath].say
         cell.downvote(content: content)
     }
-    
+    /*************************************/
+
     override func viewDidLoad() {
         super.viewDidLoad()
         hearsayMessages = loadArrayHearsayMessagesFromFilesystem()
@@ -106,13 +109,17 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         return hearsayMessages.count
     }
 
+/*************************************/
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let hearsayMessage = hearsayMessages[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
-        cell.setMessage(message: hearsayMessage)
-        return cell
+        let hearsayMessage = hearsayMessages[indexPath.row] // was here before
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell // was here before
+        cell.upVote.addTarget(self, action: #selector(upvoteBtn), for: .touchUpInside) // i found an article that said that you should set a target for the @ibaction button funciton (above) in order to execute but since we need separate functions for each cell i make a call in the button functions (above) to the feedcell.swift functions
+        cell.downVote.addTarget(self, action: #selector(downvoteBtn), for: .touchUpInside)
+        cell.setMessage(message: hearsayMessage, index: indexPath.row) // was here before
+        return cell // was here before
     }
-    
+/*************************************/
+
     /* Networking */
     
     var peerID:MCPeerID!

@@ -52,7 +52,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggv-ED-wcf">
-                                            <rect key="frame" x="362" y="42" width="35" height="20"/>
+                                            <rect key="frame" x="362" y="44" width="35" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="35" id="EbC-AX-Jcy"/>
                                                 <constraint firstAttribute="height" constant="20" id="QOa-JK-CQQ"/>
@@ -61,18 +61,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Vy-36-Yrz">
-                                            <rect key="frame" x="364" y="8" width="30" height="27"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
-                                            <state key="normal" title="/\">
-                                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="upvoteBtn:" destination="C2L-Ts-mqC" eventType="touchUpInside" id="6Zf-FI-Baw"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcL-FJ-xPB">
-                                            <rect key="frame" x="364" y="69" width="30" height="27"/>
+                                            <rect key="frame" x="364" y="71" width="30" height="27"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
                                             <state key="normal" title="\/">
                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -86,14 +76,23 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <state key="normal" title="sh"/>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxl-xe-feH">
+                                            <rect key="frame" x="364" y="8" width="30" height="29"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <state key="normal" title="/\">
+                                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="upvoteBtn:" destination="C2L-Ts-mqC" eventType="touchUpInside" id="eZ3-U7-hfd"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="9Qi-F6-Ig7" firstAttribute="leading" secondItem="hq1-um-klO" secondAttribute="leading" constant="10" id="22U-vU-3gG"/>
                                         <constraint firstAttribute="trailing" secondItem="GV7-2S-GIr" secondAttribute="trailing" constant="20" id="2fK-xa-hFv"/>
                                         <constraint firstAttribute="trailing" secondItem="Ggv-ED-wcf" secondAttribute="trailing" constant="17" id="3Ks-xC-Eqf"/>
                                         <constraint firstItem="XQ3-G8-c6z" firstAttribute="leading" secondItem="hq1-um-klO" secondAttribute="leading" constant="10" id="4a8-x5-kcD"/>
-                                        <constraint firstItem="6Vy-36-Yrz" firstAttribute="top" secondItem="hq1-um-klO" secondAttribute="top" constant="8" id="5sP-bX-REh"/>
-                                        <constraint firstItem="Ggv-ED-wcf" firstAttribute="top" secondItem="6Vy-36-Yrz" secondAttribute="bottom" constant="7" id="DQY-gJ-wmb"/>
+                                        <constraint firstItem="Hxl-xe-feH" firstAttribute="top" secondItem="hq1-um-klO" secondAttribute="top" constant="8" id="4m4-VU-VNY"/>
                                         <constraint firstItem="GV7-2S-GIr" firstAttribute="bottom" secondItem="hq1-um-klO" secondAttribute="bottomMargin" id="MxF-7T-6uw"/>
                                         <constraint firstItem="LcL-FJ-xPB" firstAttribute="top" secondItem="Ggv-ED-wcf" secondAttribute="bottom" constant="7" id="U4d-jJ-4XW"/>
                                         <constraint firstAttribute="trailing" secondItem="NJq-IH-yeC" secondAttribute="trailing" constant="75" id="e0U-dO-U80"/>
@@ -102,7 +101,8 @@
                                         <constraint firstItem="9Qi-F6-Ig7" firstAttribute="top" secondItem="hq1-um-klO" secondAttribute="top" constant="15" id="h0H-JD-6mO"/>
                                         <constraint firstItem="NJq-IH-yeC" firstAttribute="leading" secondItem="hq1-um-klO" secondAttribute="leading" constant="10" id="jbx-H0-ewx"/>
                                         <constraint firstAttribute="trailing" secondItem="9Qi-F6-Ig7" secondAttribute="trailing" constant="75" id="mdH-GT-0vw"/>
-                                        <constraint firstAttribute="trailing" secondItem="6Vy-36-Yrz" secondAttribute="trailing" constant="20" id="obX-FK-dVE"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hxl-xe-feH" secondAttribute="trailing" constant="20" id="rNO-YB-cCr"/>
+                                        <constraint firstItem="Ggv-ED-wcf" firstAttribute="top" secondItem="Hxl-xe-feH" secondAttribute="bottom" constant="7" id="v9W-EQ-X06"/>
                                         <constraint firstItem="NJq-IH-yeC" firstAttribute="top" secondItem="XQ3-G8-c6z" secondAttribute="bottom" constant="8" id="vfc-zv-pVp"/>
                                         <constraint firstItem="XQ3-G8-c6z" firstAttribute="top" secondItem="9Qi-F6-Ig7" secondAttribute="bottom" constant="4" id="ya3-dt-pNA"/>
                                     </constraints>
@@ -111,7 +111,7 @@
                                     <outlet property="content" destination="NJq-IH-yeC" id="CzU-q8-qL0"/>
                                     <outlet property="downVote" destination="LcL-FJ-xPB" id="yzX-0Z-FEo"/>
                                     <outlet property="timestamp" destination="9Qi-F6-Ig7" id="KKb-rK-wM8"/>
-                                    <outlet property="upVote" destination="6Vy-36-Yrz" id="e5M-Zc-f47"/>
+                                    <outlet property="upVote" destination="Hxl-xe-feH" id="1ud-m1-anK"/>
                                     <outlet property="username" destination="XQ3-G8-c6z" id="gZa-oP-EHH"/>
                                     <outlet property="voteCount" destination="Ggv-ED-wcf" id="9Uh-i1-bDE"/>
                                 </connections>
