@@ -22,6 +22,7 @@
 		EB59A9CA227140FA0092CB87 /* FeedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9C9227140FA0092CB87 /* FeedScreen.swift */; };
 		EB59A9CC227143860092CB87 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CB227143860092CB87 /* FeedCell.swift */; };
 		EB59A9CE227144D00092CB87 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB59A9CD227144D00092CB87 /* Message.swift */; };
+		EBE67BA02283948F000177DF /* hearsayMPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE67B9F2283948F000177DF /* hearsayMPC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		EB59A9C9227140FA0092CB87 /* FeedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedScreen.swift; sourceTree = "<group>"; };
 		EB59A9CB227143860092CB87 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; usesTabs = 1; };
 		EB59A9CD227144D00092CB87 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		EBE67B9F2283948F000177DF /* hearsayMPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hearsayMPC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				EB59A9C322713BCD0092CB87 /* apple_filesystem_wrapper.swift */,
 				EB59A9C422713BCD0092CB87 /* hearsay_classes.swift */,
 				EB59A9B122713B100092CB87 /* AppDelegate.swift */,
+				EBE67B9F2283948F000177DF /* hearsayMPC.swift */,
 				1FA3069E227A6A9300902ED6 /* InitialViewController.swift */,
 				EB59A9C9227140FA0092CB87 /* FeedScreen.swift */,
 				EB59A9CB227143860092CB87 /* FeedCell.swift */,
@@ -169,6 +172,7 @@
 				EB59A9C822713D4C0092CB87 /* hearsay_classes_tests.swift in Sources */,
 				EB59A9B222713B100092CB87 /* AppDelegate.swift in Sources */,
 				EB59A9C622713BCE0092CB87 /* hearsay_classes.swift in Sources */,
+				EBE67BA02283948F000177DF /* hearsayMPC.swift in Sources */,
 				EB59A9C522713BCE0092CB87 /* apple_filesystem_wrapper.swift in Sources */,
 				1FC5E2F12278A7BD0046FF6F /* NewSayViewController.swift in Sources */,
 				1FA3069F227A6A9300902ED6 /* InitialViewController.swift in Sources */,

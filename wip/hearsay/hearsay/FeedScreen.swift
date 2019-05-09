@@ -16,8 +16,14 @@ var hm_pass: hearsayMessage! //Used to reference the top-level message (hm_pass.
 
 var hosting:Bool!
 
-class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking, MCSessionDelegate, MCBrowserViewControllerDelegate {
+var listening = false
+var broadcasting = false
+
+class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaData, AppDirectoryNames, AppFileStatusChecking, MPCManagerDelegate {
+    
     @IBOutlet var feedTableView: UITableView!
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBAction func newSay(_ sender: Any) {
         // function runs anytime someone clicks the new message button
@@ -30,12 +36,12 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         self.feedTableView.delegate = self
         self.feedTableView.dataSource = self
         
-        /* Networking Setup: */
-        peerID = MCPeerID(displayName: "hearsayUser")
-        mcSession = MCSession(peer: peerID)
-        mcSession.delegate = self
-        
-        hosting = false
+        appDelegate.mpcManager.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -50,12 +56,18 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         
         performSegue(withIdentifier: "detailView", sender: self)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return hearsayMessages.count
     }
-    
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let hearsayMessage = hearsayMessages[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
+        cell.setMessage(message: hearsayMessage)
+        return cell
+    }
+
     func loadArrayHearsayMessagesFromFilesystem() -> [hearsayMessage] {
         //Returns an array of hearsayMessage for each hearsayMessage stored as a file in the user's Documents directory
         var json_hc: String
@@ -77,62 +89,31 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
             hearsayMessages.append(hm)
         }
         
-        if false {
-            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "pedro", text: "hello my name is pedro i study compuer science and engineering and like to ride my skateboard. I sometimes bird around even though those are the most annoying invention. lets see how the app manages a content that goes past the height of the cell like if it gives you the dot dot dot or if it will overwrite the next cell or just do something unpredictable"), isSay: true))
-            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "maddee", text: "goodbye"), isSay: true))
-            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "eoin", text: "im a smart dude"), isSay: true))
-            hearsayMessages.append(hearsayMessage(content: hearsayContent(author: "abby", text: "im going skydiving the day before mother's day i hope my mom doesnt get mad!!!!! jumping out of a plane scares me"), isSay: true))
-        }
-        
         hearsayMessages.sort(by: >)
         return hearsayMessages
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hearsayMessages.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let hearsayMessage = hearsayMessages[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell") as! FeedCell
-        cell.setMessage(message: hearsayMessage)
-        return cell
-    }
-
+    
     /* Networking */
-    
-    var peerID:MCPeerID!
-    var mcSession:MCSession!
-    var mcAdvertiserAssistant:MCAdvertiserAssistant!
-    
-    
     
     @IBAction func refreshButton(_ sender: Any) {
         // listening functionality here
-        
-        let connectActionSheet = UIAlertController(title: "Listening...", message: "Hearsay users must be in range and broadcasting in order to receive their messages. Pick the message(s) you would like to download.", preferredStyle: .actionSheet)
-        
-        connectActionSheet.addAction(UIAlertAction(title: "Listen for messages", style: .default, handler: {
-            (action: UIAlertAction) in
+        if(listening == false){
+            listening = true
+            broadcasting = false
+            appDelegate.mpcManager.browser.stopBrowsingForPeers()
+            appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+            print("broadcasting: \(broadcasting)\tlistening: \(listening)")
+        }
+        else if(listening == true){
             
-            let mcBrowser = MCBrowserViewController(serviceType: "hearsay", session: self.mcSession)
-            mcBrowser.delegate = self
-            
-            //shows the MPCF browser with available connections
-            self.present(mcBrowser, animated: true, completion: nil)
-            
-        }))
-        
-        connectActionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(connectActionSheet, animated: true, completion: nil)
+            listening = false
+            broadcasting = true
+            appDelegate.mpcManager.browser.startBrowsingForPeers()
+            appDelegate.mpcManager.advertiser.stopAdvertisingPeer()
+            print("broadcasting: \(broadcasting)\tlistening:\(listening)")
+        }
     }
-    
-    
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
-        
-    }
-    
+    /*
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         
         //Convert received Data into hearsayMessage
@@ -145,27 +126,54 @@ class FeedScreen: UITableViewController, AppFileManipulation, AppFileSystemMetaD
         //After downloaded file, disconnect from session.
         session.disconnect()
         
+    }*/
+    
+    /* * * * * * MPCManagerDelegate Functionality * * * * * */
+    
+    func foundPeer() {
+        //Invitation automatically sent
     }
     
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+    func lostPeer() {
         
     }
     
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+    func invitationWasReceived(fromPeer: String) { //Automatically accept invites to connect
+        if listening == true{
+            appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
+            print("accepted invitation!")
+        }
+        else{
+            appDelegate.mpcManager.invitationHandler(false, nil)
+            print("declined invitation!")
+        }
+    }
+    
+    func connectedWithPeer(peerID: MCPeerID) {
+        print("connected with peer! \(peerID)")
+        if broadcasting == true{
+            for hm in hearsayMessages {
+                if(hm.broadcast == true){
+                    appDelegate.mpcManager.sendData(hm: hm, toPeer: peerID)
+                    print("\t\t sent message: \(hm_pass.sayIdentifier)")
+                }
+            }
+            appDelegate.mpcManager.session.disconnect()
+        }
+    }
+    
+    func didReceiveData(fromPeer peerID: MCPeerID, rawData raw: Data) {
+        let hm = hearsayMessage(raw: raw)
+        hm.broadcast = false
+        hm.sayFlag = false
         
+        print("got data!! \(hm.sayIdentifier)")
+        //Insert into feed; commit to filesystem
+        insertHearsayMessageIntoSortedHearsayMessageArray(array: &hearsayMessages, message: hm)
+        hm.writeToFile()
     }
     
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
-    }
     
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        dismiss(animated: true, completion: nil)
-    }
     
 }
 
